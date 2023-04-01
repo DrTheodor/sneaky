@@ -1,0 +1,6 @@
+{
+  "name.sneaky.translation": "Sneaky!",
+
+  "option.sneaky.keep_sneak": "Keep sneaking after screen got closed",
+  "option.sneaky.keep_sneak.description": "If on, player will keep sneaking even after inventory got closed. \nTo un-sneak, just press sneak button again."
+}

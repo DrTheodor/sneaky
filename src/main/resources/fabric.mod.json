@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "sneaky",
+  "version": "${version}",
+  "name": "sneaky",
+  "description": "",
+  "authors": ["DrTheo_"],
+  "contact": {
+    "repo": "https://github.com/DrTheodor/sneaky",
+    "sources": "https://github.com/DrTheodor/sneaky",
+    "issues": "https://github.com/DrTheodor/sneaky/issues",
+
+    "homepage": "https://modrinth.com/mod/sneaky"
+  },
+  "license": "MIT",
+  "icon": "assets/sneaky/icon.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "dev.drtheo.sneaky.SneakyClient"
+    ],
+    "modmenu": [
+      "dev.drtheo.sneaky.menu.SneakyModMenu"
+    ]
+  },
+  "mixins": [
+    "sneaky.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/CvSkNeQ9uj"
+      }
+    }
+  }
+}
