@@ -27,9 +27,8 @@
     "sneaky.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=${loader_version}",
-    "fabric": "*",
-    "minecraft": "${minecraft_version}"
+    "fabricloader": "*",
+    "minecraft": "*"
   },
   "custom": {
     "modmenu": {
