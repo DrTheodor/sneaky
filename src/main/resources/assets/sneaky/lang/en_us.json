@@ -1,6 +1,9 @@
 {
   "name.sneaky.translation": "Sneaky!",
 
-  "option.sneaky.keep_sneak": "Keep sneaking after screen got closed",
-  "option.sneaky.keep_sneak.description": "If on, player will keep sneaking even after inventory got closed. \nTo un-sneak, just press sneak button again."
+  "option.sneaky.keep_sneak": "Sticky sneak?",
+  "option.sneaky.keep_sneak.description": "If on, player will keep sneaking even after inventory got closed. \nTo un-sneak, just press sneak button again.",
+
+  "option.sneaky.hold_to_toggle": "Hold-to-toggle time",
+  "option.sneaky.hold_to_toggle.description": "Hold the sneak button for this period of time (in seconds) to toggle sneak. \nUse negative values (or 0) to disable."
 }

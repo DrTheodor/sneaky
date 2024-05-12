@@ -28,7 +28,7 @@
   ],
   "depends": {
     "fabricloader": "*",
-    "minecraft": "*"
+    "minecraft": ">=1.18"
   },
   "custom": {
     "modmenu": {
@@ -36,5 +36,9 @@
         "modmenu.discord": "https://discord.gg/CvSkNeQ9uj"
       }
     }
+  },
+  "suggests": {
+    "modmenu": "*",
+    "cloth-config": "*"
   }
 }

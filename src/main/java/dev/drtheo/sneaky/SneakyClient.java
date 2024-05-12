@@ -11,6 +11,6 @@ public class SneakyClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        LOGGER.info("You are now sneaky!");
+        LOGGER.info("You are now sneaky! \uD83E\uDD2B");
     }
 }

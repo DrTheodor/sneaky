@@ -14,6 +14,7 @@ public class SneakyConfig {
 
     private static final Path path = FabricLoader.getInstance().getConfigDir().resolve("sneaky.cfg");
     private static boolean keepSneak = false;
+    private static int holdToToggle = -1;
 
     static {
         SneakyConfig.read();
@@ -27,6 +28,18 @@ public class SneakyConfig {
         SneakyConfig.keepSneak = keepSneak;
     }
 
+    public static int holdToToggle() {
+        return holdToToggle;
+    }
+
+    public static void holdToToggle(int holdToToggle) {
+        SneakyConfig.holdToToggle = holdToToggle;
+    }
+
+    public static boolean shouldHoldToToggle() {
+        return holdToToggle > 0;
+    }
+
     public static void read() {
         if (!Files.exists(path))
             SneakyConfig.save();
@@ -36,9 +49,9 @@ public class SneakyConfig {
             properties.load(stream);
 
             SneakyConfig.shouldKeepSneak(Boolean.parseBoolean(properties.getProperty("keepSneak")));
+            SneakyConfig.holdToToggle(Integer.parseInt(properties.getProperty("holdToToggle")));
         } catch (IOException e) {
-            SneakyClient.LOGGER.error("Failed to read config for sneaky!");
-            e.printStackTrace();
+            SneakyClient.LOGGER.error("Failed to read config for sneaky!", e);
         }
     }
 
@@ -46,11 +59,11 @@ public class SneakyConfig {
         try (OutputStream stream = Files.newOutputStream(path)) {
             Properties properties = new Properties();
             properties.put("keepSneak", Boolean.toString(keepSneak));
+            properties.put("holdToToggle", Integer.toString(holdToToggle));
 
             properties.store(stream, null);
         } catch (IOException e) {
-            SneakyClient.LOGGER.error("Failed to write config for sneaky!");
-            e.printStackTrace();
+            SneakyClient.LOGGER.error("Failed to write config for sneaky!", e);
         }
     }
 }

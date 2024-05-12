@@ -5,16 +5,20 @@ import dev.drtheo.sneaky.mixininterface.IMinecraftClientMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.input.Input;
 import net.minecraft.client.network.ClientPlayerEntity;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayerEntity.class)
 public class ClientPlayerEntityMixin {
 
     @Shadow public Input input;
 
-    private boolean stickySneak = false;
+    @Shadow @Final protected MinecraftClient client;
+    @Unique private boolean stickySneak = false;
+
+    @Unique private int sneakTime = 0;
 
     /**
      * @author DrTheo_
@@ -22,15 +26,30 @@ public class ClientPlayerEntityMixin {
      */
     @Overwrite
     public boolean isSneaking() {
-        boolean shouldSneak = ((IMinecraftClientMixin) MinecraftClient.getInstance()).shouldSneak();
+        boolean shouldSneak = ((IMinecraftClientMixin) this.client).sneaky$shouldSneak();
         boolean isSneaking = this.input != null && this.input.sneaking;
 
         if (SneakyConfig.shouldKeepSneak() && shouldSneak)
             this.stickySneak = true;
 
+        if (SneakyConfig.shouldHoldToToggle() && this.sneakTime > 0)
+            this.stickySneak = this.sneakTime >= SneakyConfig.holdToToggle();
+
         if (this.stickySneak && isSneaking)
             this.stickySneak = false;
 
         return this.stickySneak || isSneaking || shouldSneak;
+    }
+
+    @Inject(method = "tickMovement", at = @At("HEAD"))
+    public void tickMovement(CallbackInfo ci) {
+        if (this.input == null)
+            return;
+
+        if (this.input.sneaking) {
+            this.sneakTime += 1;
+        } else {
+            this.sneakTime = 0;
+        }
     }
 }
